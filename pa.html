@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}
+path.slice{
+	stroke-width:2px;
+}
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+} 
+svg text.percent{
+	fill:white;
+	text-anchor:middle;
+	font-size:12px;
+}
+
+</style>
+<body>
+<button onClick="趨勢變化()">趨勢變化</button>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="Donut3D.js"></script>
+<script>
+
+var salesData=[
+	{label:"Basic", color:"#3366CC"},
+	{label:"Delux", color:"#990099"}
+];
+
+var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
+
+svg.append("g").attr("id","台北");
+svg.append("g").attr("id","新北");
+
+Donut3D.draw("台北", randomData(), 673, 208);
+Donut3D.draw("新北", randomData(), 1371, 337);
+	
+function changeData(){
+	Donut3D.transition("台北", randomData(), 674,260);
+	Donut3D.transition("新北", randomData(), 1424, 420);
+}
+
+function randomData(){
+	return salesData.map(function(d){ 
+		return {label:d.label, value:1000*Math.random(), color:d.color};});
+}
+</script>
+</body>
